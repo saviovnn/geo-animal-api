@@ -1,5 +1,5 @@
 import fastify from "fastify";
-import fastifyCors from "fastify-cors";
+import cors from "@fastify/cors";
 import { supabase } from "./supabaseConnection";
 
 const app = fastify();
@@ -13,8 +13,8 @@ type Animal = {
   country: string;
 }
 
-app.register(fastifyCors, {
-  origin: 'http://localhost:3000',
+app.register(cors, {
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 });
@@ -114,7 +114,11 @@ app.delete("/animals/:id", async (request, response) => {
 app.listen({ 
   host: '0.0.0.0',
   port: process.env.PORT ? parseInt(process.env.PORT) : 3333,
-}, () => {
-  console.log(`Server is running on port ${process.env.PORT} 🐸`);
+}, (err) => {
+  if (err) {
+    console.error('Error starting server:', err);
+    process.exit(1);
+  }
+  console.log(`Server is running 🐸`);
 });
 
