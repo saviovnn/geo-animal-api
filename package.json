@@ -2,9 +2,12 @@
   "name": "geo-animal-api",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+     "node": "20"
+  },
   "scripts": {
     "dev": "tsx src/server.ts",
-    "build": "tsup",
+    "build": "tsup src",
     "start": "node dist/server.js"
   },
   "keywords": [],
