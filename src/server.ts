@@ -1,4 +1,5 @@
 import fastify from "fastify";
+import fastifyCors from "fastify-cors";
 import { supabase } from "./supabaseConnection";
 
 const app = fastify();
@@ -11,6 +12,13 @@ type Animal = {
   images: string[];
   country: string;
 }
+
+app.register(fastifyCors, {
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+});
+
 
 app.get("/animals", async () => {
   try{
